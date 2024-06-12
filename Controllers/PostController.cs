@@ -63,14 +63,14 @@ public class PostController : ControllerBase
         return Ok(CreatedPost);
     }
 
-    [HttpPut("{PostId}")]
+    [HttpPut("{post_id}")]
     [Authorize]
 
-    public async Task<ActionResult> UpdatePost([FromBody] PostUpdateDto post, [FromRoute] long PostId)
+    public async Task<ActionResult> UpdatePost([FromBody] PostUpdateDto post, [FromRoute] long post_id)
     {
         var userId = UserUtils.GetUserId(HttpContext);
 
-        var existingPost = await _post.GetPostById(PostId);
+        var existingPost = await _post.GetPostById(post_id);
         if(existingPost == null)
             return NotFound("Post not found");
 
@@ -89,14 +89,14 @@ public class PostController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{PostId}")]
+    [HttpDelete("{post_id}")]
     [Authorize]
 
-    public async Task<ActionResult> DeletePost([FromRoute] long PostId)
+    public async Task<ActionResult> DeletePost([FromRoute] long post_id)
     {
         var userId = UserUtils.GetUserId(HttpContext);
 
-        var post = await _post.GetPostById(PostId);
+        var post = await _post.GetPostById(post_id);
         if(post == null)
             return NotFound("post not found");
 

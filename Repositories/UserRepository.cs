@@ -9,8 +9,6 @@ public interface IUserRepository
 {
     Task<List<UserDto>> GetUsers();
 
-    Task<long> GetUserId(string username);
-
     Task<User?> GetUserById(long id);
 
     Task<User> GetUserByUsername(string username);
@@ -79,16 +77,6 @@ public class UserRepository : BaseRepository, IUserRepository
         var result = await connection.QueryFirstOrDefaultAsync<User>(query, new {Username = username});
 
         return result!;
-    }
-
-    public async Task<long> GetUserId(string username)
-    {
-        var query = @"SELECT id FROM users WHERE username = @Username";
-
-        using var connection = DbConnection;
-        var result = await connection.QueryFirstOrDefaultAsync<long>(query, new {Username = username});
-
-        return result;
     }
 
     public async Task<List<UserDto>> GetUsers()

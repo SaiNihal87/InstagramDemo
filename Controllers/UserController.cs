@@ -60,7 +60,7 @@ public class UserController : ControllerBase
         
     //     return Ok(CreatedUser);
     // }
-    [HttpGet("Current_user")]
+    [HttpGet("current_user")]
     [Authorize]
 
     public async Task<ActionResult> GetCurrentUser()
@@ -72,14 +72,14 @@ public class UserController : ControllerBase
 
     }
 
-    [HttpPut("{UserId}")]
+    [HttpPut("{user_id}")]
     [Authorize]
 
-    public async Task<ActionResult> UpdateUser([FromBody] UserUpdateDto user, [FromRoute] long UserId)
+    public async Task<ActionResult> UpdateUser([FromBody] UserUpdateDto user, [FromRoute] long user_id)
     {
         var userId = UserUtils.GetUserId(HttpContext);
 
-        var existingUser = await _user.GetUserById(UserId);
+        var existingUser = await _user.GetUserById(user_id);
         if(existingUser == null)
             return NotFound("User not found");
 
@@ -100,14 +100,14 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{UserId}")]
+    [HttpDelete("{user_id}")]
     [Authorize]
 
-    public async Task<ActionResult> DeleteUser([FromRoute] long UserId)
+    public async Task<ActionResult> DeleteUser([FromRoute] long user_id)
     {
         var userId = UserUtils.GetUserId(HttpContext);
 
-        var user = await _user.GetUserById(UserId);
+        var user = await _user.GetUserById(user_id);
         if(user == null)
             return NotFound("User not found");
 

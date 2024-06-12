@@ -59,14 +59,14 @@ public class CommentController : ControllerBase
         return Ok(CreatedComment);
     }
 
-    [HttpPut("{CommentId}")]
+    [HttpPut("{comment_id}")]
     [Authorize]
 
-    public async Task<ActionResult> UpdateComment([FromBody] CommentUpdateDto comment, [FromRoute] long CommentId)
+    public async Task<ActionResult> UpdateComment([FromBody] CommentUpdateDto comment, [FromRoute] long comment_id)
     {
         var userId = UserUtils.GetUserId(HttpContext);
         
-        var existingComment = await _comment.GetCommentById(CommentId);
+        var existingComment = await _comment.GetCommentById(comment_id);
         if(existingComment == null)
             return NotFound("Comment not found");
 
@@ -83,15 +83,15 @@ public class CommentController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{CommentId}")]
+    [HttpDelete("{comment_id}")]
     [Authorize]
 
-    public async Task<ActionResult> DeleteComment([FromRoute] long CommentId)
+    public async Task<ActionResult> DeleteComment([FromRoute] long comment_id)
     {
 
         var userId = UserUtils.GetUserId(HttpContext);
 
-        var comment = await _comment.GetCommentById(CommentId);
+        var comment = await _comment.GetCommentById(comment_id);
         if(comment == null)
             return NotFound("Comment not found");
 

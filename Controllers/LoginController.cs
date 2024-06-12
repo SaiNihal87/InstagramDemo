@@ -53,7 +53,7 @@ public class LoginController : ControllerBase
 
 
     [AllowAnonymous]
-    [HttpPost("api/Login")]
+    [HttpPost("login")]
 
     public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
     {
@@ -76,7 +76,7 @@ public class LoginController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("api/Register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserCreateDto user)
     {
         var toCreate = new User
